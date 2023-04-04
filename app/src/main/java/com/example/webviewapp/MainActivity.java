@@ -14,12 +14,14 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
     private WebView myWebView;
     public void showExternalWebPage(){
-        // TODO: Add your code for showing external web page here
+        String url = "https://www.example.com";
+        myWebView.loadUrl(url);
     }
 
     public void showInternalWebPage(){
-        // TODO: Add your code for showing internal web page here
-    }
+        String htmlFilename = "internalPage.html";
+        String baseUrl = "file:///android_asset/";
+        myWebView.loadUrl(baseUrl + htmlFilename);    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
         myWebView = findViewById(R.id.my_webview);
         myWebView.setWebViewClient(new WebViewClient());
+
+        WebSettings webSettings = myWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
 
 
 
@@ -77,11 +83,13 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_external_web) {
             Log.d("==>","Will display external web page");
+            showExternalWebPage();
             return true;
         }
 
         if (id == R.id.action_internal_web) {
             Log.d("==>","Will display internal web page");
+            showInternalWebPage();
             return true;
         }
 
